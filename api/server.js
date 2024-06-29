@@ -1,28 +1,29 @@
-// See https://github.com/typicode/json-server#module
-const jsonServer = require('json-server')
+const jsonServer = require('json-server');
 const cors = require('cors');
-const server = jsonServer.create()
-const router = jsonServer.router('db.json')
-const middlewares = jsonServer.defaults()
+const server = jsonServer.create();
+const router = jsonServer.router('db.json');
+const middlewares = jsonServer.defaults();
 
-server.use(middlewares)
-// Add this before server.use(router)
+// Middlewares por defecto de json-server (logger, static, etc.)
+server.use(middlewares);
 
-// Configurar CORS para permitir todas las solicitudes
+// Habilitar CORS con configuración específica
 server.use(cors({
-    origin: 'https://proyecto-react-red.vercel.app',  // Permitir todos los orígenes. Para mayor seguridad, especifica el origen exacto.
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
+  origin: 'https://proyecto-react-red.vercel.app', // Permitir solo este origen
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+}));
 
+// Rutas personalizadas o reescrituras de URL
 server.use(jsonServer.rewriter({
-    '/api/*': '/$1',
-    '/product/:resource/:id/show': '/:resource/:id'
-}))
-server.use(router)
-server.listen(3000, () => {
-    console.log('JSON Server is running')
-})
+  '/api/*': '/$1', // Reescribe /api/* a /*
+  '/product/:resource/:id/show': '/:resource/:id', // Ejemplo de reescritura
+}));
 
-// Export the Server API
-module.exports = server
+// Montar el enrutador JSON
+server.use(router);
+
+// Iniciar el servidor en el puerto 3000
+server.listen(3000, () => {
+  console.log('JSON Server is running');
+});
