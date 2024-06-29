@@ -10,7 +10,7 @@ server.use(middlewares)
 
 // Configurar CORS para permitir todas las solicitudes
 server.use(cors({
-    origin: '*',  // Permitir todos los orígenes. Para mayor seguridad, especifica el origen exacto.
+    origin: 'https://proyecto-react-red.vercel.app',  // Permitir todos los orígenes. Para mayor seguridad, especifica el origen exacto.
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
