@@ -9,7 +9,7 @@ server.use(middlewares);
 
 // Habilitar CORS con configuración específica
 server.use(cors({
-  origin: 'https://proyecto-react-red.vercel.app', // Permitir solo este origen
+    origin: ['http://localhost:3000', 'https://proyecto-react-git-master-rennitos-projects.vercel.app'], // Permitir solo este origen
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 }));
@@ -24,6 +24,6 @@ server.use(jsonServer.rewriter({
 server.use(router);
 
 // Iniciar el servidor en el puerto 3000
-server.listen(3000, () => {
+server.listen(5000, () => {
   console.log('JSON Server is running');
 });
